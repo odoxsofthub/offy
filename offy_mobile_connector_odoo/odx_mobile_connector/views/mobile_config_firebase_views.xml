@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- No separate Firebase toggle: push_notifications_enabled gates delivery and requires the file. -->
+    <record id="view_mobile_config_form_firebase" model="ir.ui.view">
+        <field name="name">mobile.config.form.firebase</field>
+        <field name="model">mobile.config</field>
+        <field name="inherit_id" ref="view_mobile_config_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='notifications']//group[field[@name='push_notifications_enabled']]"
+                   position="after">
+                <group string="Firebase (Firebase Cloud Messaging)"
+                       groups="odx_mobile_connector.group_mobile_admin">
+                    <field name="firebase_service_account_filename" invisible="1"/>
+                    <field name="firebase_service_account_file"
+                           widget="binary"
+                           filename="firebase_service_account_filename"/>
+                    <field name="firebase_project_id" readonly="1"/>
+                    <field name="firebase_client_email" readonly="1"/>
+                    <field name="firebase_validation_status"/>
+                    <field name="firebase_last_validation_date"/>
+                    <field name="firebase_validation_message"
+                           invisible="not firebase_validation_message"/>
+                    <div colspan="2" class="d-flex gap-2 flex-wrap mt-2">
+                        <button name="action_validate_firebase_credentials"
+                                type="object" class="btn-primary"
+                                string="Validate Firebase Credentials"/>
+                        <button name="action_clear_firebase_credentials"
+                                type="object" class="btn-secondary"
+                                string="Remove / Re-upload Firebase Credentials"
+                                confirm="This will remove the current Firebase service account JSON and turn off Push Notifications until a new file is uploaded. Do you want to continue?"
+                                groups="odx_mobile_connector.group_mobile_admin"/>
+                    </div>
+                </group>
+                <group string="Token Failure Handling"
+                       groups="odx_mobile_connector.group_mobile_admin">
+                    <field name="firebase_token_auto_deactivate_failed"/>
+                    <field name="firebase_token_failure_limit"/>
+                    <field name="firebase_token_failure_window_hours"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Optional admin-only diagnostic columns, hidden by default, on the Firebase device tokens list. -->
+    <record id="view_mobile_user_session_form_firebase_failure" model="ir.ui.view">
+        <field name="name">mobile.user.session.form.firebase.failure</field>
+        <field name="model">mobile.user.session</field>
+        <field name="inherit_id" ref="view_mobile_user_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='device_token_ids']/list/field[@name='last_push_sent_at']"
+                   position="after">
+                <field name="failure_count" optional="hide" readonly="1" width="120px"
+                       groups="odx_mobile_connector.group_mobile_admin"/>
+                <field name="last_failure_at" optional="hide" readonly="1" width="170px"
+                       groups="odx_mobile_connector.group_mobile_admin"/>
+                <field name="last_failure_code" optional="hide" readonly="1" width="160px"
+                       groups="odx_mobile_connector.group_mobile_admin"/>
+                <field name="last_success_at" optional="hide" readonly="1" width="170px"
+                       groups="odx_mobile_connector.group_mobile_admin"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

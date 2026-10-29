@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# AI assistant files and internal development notes (never published)
+AI_CONTEXT.md
+PORTABILITY_FIX.md
+ai.md
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+AGENTS.md
+prompt*.md
+.cursor/
+.cursorrules
+
+# Secrets: Firebase service-account keys, certificates, environment files
+*firebase-adminsdk*.json
+service-account*.json
+*.pem
+*.p8
+*.p12
+.env
+.env.*
+
+# Packaged builds, database dumps and OS files
+*.zip
+*.dump
+*.sql.gz
+.DS_Store
+
+# Editors and local tooling
+.idea/
+.vscode/
+*.swp
+*.orig
+*.rej
+.coverage
+htmlcov/
+.venv/
+venv/
+odoo.conf
+*.conf.local

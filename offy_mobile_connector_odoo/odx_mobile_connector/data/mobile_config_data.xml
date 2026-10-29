@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="mobile_config_default" model="mobile.config">
+        <field name="login_enabled" eval="True"/>
+        <field name="session_timeout">60</field>
+        <field name="max_devices">1</field>
+        <field name="push_notifications_enabled" eval="False"/>
+    </record>
+
+</odoo>

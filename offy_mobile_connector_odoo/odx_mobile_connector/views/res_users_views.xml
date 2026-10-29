@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_form_mobile" model="ir.ui.view">
+        <field name="name">res.users.form.mobile</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <!-- Keyed on is_mobile_restricted_user, not "share": mobile-only employees are share users who need this. -->
+            <xpath expr="//page[@name='access_rights']/group[1]" position="after">
+                <group string="OFFY Connector" invisible="is_mobile_restricted_user">
+                    <field name="is_mobile_restricted_user" invisible="1"/>
+                    <field name="mobile_access_level"/>
+                    <field name="mobile_user"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Mobile App Access" name="mobile_app_access"
+                      invisible="is_mobile_restricted_user or not mobile_user">
+                    <div class="text-muted mb-2">
+                        This user has <b>full access</b> to every feature listed below.
+                        Remove a line to hide that feature in the mobile app; add it
+                        back to restore access.
+                    </div>
+                    <field name="mobile_feature_access_ids">
+                        <list editable="bottom">
+                            <field name="feature_id" options="{'no_create': True}"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

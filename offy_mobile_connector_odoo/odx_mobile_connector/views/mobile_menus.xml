@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_mobile_connector_root"
+              name="OFFY Connector"
+              web_icon="odx_mobile_connector,static/description/icon.png"
+              sequence="90"
+              groups="group_mobile_viewer"/>
+
+    <menuitem id="menu_mobile_features"
+              name="Features"
+              parent="menu_mobile_connector_root"
+              action="action_mobile_feature"
+              sequence="10"/>
+
+    <menuitem id="menu_mobile_sessions"
+              name="Sessions"
+              parent="menu_mobile_connector_root"
+              action="action_mobile_user_session"
+              sequence="20"
+              groups="group_mobile_viewer"/>
+
+    <menuitem id="menu_mobile_configuration"
+              name="Configuration"
+              parent="menu_mobile_connector_root"
+              action="action_mobile_config"
+              sequence="70"
+              groups="group_mobile_admin"/>
+
+</odoo>

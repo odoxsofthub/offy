@@ -1,0 +1,9 @@
+OFFY mobile application
+Copyright (C) 2026 Odox SoftHub LLP
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It depends on third-party packages that keep their own licences, including
+Syncfusion Flutter packages under the Syncfusion Community License or a
+Syncfusion commercial license. See section 23.1 of the main README:
+https://github.com/odoxsofthub/offy/blob/offy-odoo-19-enterprise/README.md#231-third-party-components

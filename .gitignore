@@ -1,0 +1,35 @@
+# AI assistant files and internal notes (never published)
+ai.md
+AI_CONTEXT.md
+PORTABILITY_FIX.md
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+AGENTS.md
+prompt*.md
+.cursor/
+.cursorrules
+.windsurf/
+.gemini/
+.aider*
+.github/copilot-instructions.md
+
+# Secrets
+.env
+.env.*
+!.env.example
+*firebase-adminsdk*.json
+service-account*.json
+*.pem
+*.p8
+*.p12
+*.jks
+*.keystore
+key.properties
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
