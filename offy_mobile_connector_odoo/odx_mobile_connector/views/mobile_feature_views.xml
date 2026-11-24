@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mobile_feature_list" model="ir.ui.view">
+        <field name="name">mobile.feature.list</field>
+        <field name="model">mobile.feature</field>
+        <field name="arch" type="xml">
+            <!-- editable stages toggle changes behind Save/Discard; open_form_view keeps the form reachable. -->
+            <list string="Mobile Features" editable="bottom" open_form_view="1">
+                <field name="is_default" column_invisible="1"/>
+                <!-- readonly on shipped features: mobile_feature.write refuses to change their name/code. -->
+                <field name="name" readonly="is_default"/>
+                <field name="code" readonly="is_default"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_feature_form" model="ir.ui.view">
+        <field name="name">mobile.feature.form</field>
+        <field name="model">mobile.feature</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Feature" archive="0">
+                <sheet>
+                    <field name="is_default" invisible="1"/>
+                    <field name="log_notes_enabled" invisible="1"/>
+                    <field name="show_chatter" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_toggle_chatter" type="object"
+                                class="oe_stat_button" icon="fa-history"
+                                invisible="not log_notes_enabled">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text" invisible="show_chatter">Show Logs</span>
+                                <span class="o_stat_text" invisible="not show_chatter">Hide Logs</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" readonly="is_default"/>
+                            <field name="code" readonly="is_default"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <separator string="Description"/>
+                    <field name="description" placeholder="Feature description..."/>
+                    <notebook>
+                        <page string="User Access" name="user_access">
+                            <widget name="mobile_user_access_search"/>
+                            <field name="access_user_ids" invisible="1"/>
+                            <field name="user_access_ids">
+                                <list editable="bottom" create="true" delete="true">
+                                    <field name="user_id"
+                                           domain="[('group_ids', 'in', [%(odx_mobile_connector.group_mobile_user)d]), ('id', 'not in', parent.access_user_ids)]"
+                                           options="{'no_create': True}"/>
+                                </list>
+                            </field>
+                            <p class="text-muted">
+                                Mobile Users are listed here automatically and get
+                                <b>full access</b> to this feature. Use <b>Add a line</b>
+                                to grant a Mobile User access and the <b>🗑</b> to remove
+                                one — a user who is not listed cannot see this feature in
+                                the mobile app. Removing the <b>Mobile User</b> flag
+                                on a user removes them from every feature, re-adding restores all.
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter invisible="not log_notes_enabled or not show_chatter"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mobile_feature_search" model="ir.ui.view">
+        <field name="name">mobile.feature.search</field>
+        <field name="model">mobile.feature</field>
+        <field name="arch" type="xml">
+            <search string="Mobile Features">
+                <field name="name"/>
+                <field name="code"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mobile_feature" model="ir.actions.act_window">
+        <field name="name">Features</field>
+        <field name="res_model">mobile.feature</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_mobile_feature_search"/>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+</odoo>

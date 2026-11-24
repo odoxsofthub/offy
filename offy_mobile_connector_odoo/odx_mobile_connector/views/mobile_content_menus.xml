@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Grouping menu (no action, no icon) for the mobile app's Privacy Policy, Terms and FAQ. -->
+    <menuitem id="menu_mobile_content_root"
+              name="Mobile Content"
+              parent="menu_mobile_connector_root"
+              sequence="30"
+              groups="odx_mobile_connector.group_mobile_viewer"/>
+
+    <record id="menu_mobile_content_root" model="ir.ui.menu">
+        <field name="action" eval="False"/>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <menuitem id="menu_mobile_privacy_policy"
+              name="Privacy Policy"
+              parent="menu_mobile_content_root"
+              action="action_mobile_privacy_policy"
+              sequence="10"/>
+
+    <menuitem id="menu_mobile_terms_condition"
+              name="Terms &amp; Conditions"
+              parent="menu_mobile_content_root"
+              action="action_mobile_terms_condition"
+              sequence="20"/>
+
+    <menuitem id="menu_mobile_faq"
+              name="FAQ"
+              parent="menu_mobile_content_root"
+              action="action_mobile_faq"
+              sequence="30"/>
+
+</odoo>

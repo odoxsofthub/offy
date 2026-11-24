@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_mobile_connector" model="ir.module.category">
+        <field name="name">OFFY Connector</field>
+        <field name="description">Access management for the OFFY Connector.</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="group_mobile_viewer" model="res.groups">
+        <field name="name">Mobile App View Access</field>
+        <field name="comment">Can view OFFY Connector data without editing it.</field>
+    </record>
+
+    <record id="group_mobile_manager" model="res.groups">
+        <field name="name">Mobile App Manager</field>
+        <field name="implied_ids" eval="[(4, ref('group_mobile_viewer'))]"/>
+        <field name="comment">Can view, create and edit OFFY Connector data.</field>
+    </record>
+
+    <record id="group_mobile_admin" model="res.groups">
+        <field name="name">Mobile App Administrator</field>
+        <field name="implied_ids" eval="[(4, ref('group_mobile_manager'))]"/>
+        <field name="comment">Full control over the OFFY Connector, including configuration.</field>
+    </record>
+
+    <!-- Not implied by any group, so nobody is a mobile user until explicitly assigned. -->
+    <record id="group_mobile_user" model="res.groups">
+        <field name="name">Mobile User</field>
+        <field name="comment">User is allowed to use the mobile application.</field>
+    </record>
+
+    <!-- Removable direct membership (not via group_system implied_ids); noupdate keeps the admin's choice. -->
+    <data noupdate="1">
+        <record id="base.user_admin" model="res.users">
+            <field name="group_ids" eval="[(4, ref('group_mobile_admin'))]"/>
+        </record>
+    </data>
+
+</odoo>

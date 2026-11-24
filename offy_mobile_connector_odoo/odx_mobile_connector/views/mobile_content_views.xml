@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mobile_privacy_policy_form" model="ir.ui.view">
+        <field name="name">mobile.privacy.policy.form</field>
+        <field name="model">mobile.privacy.policy</field>
+        <field name="arch" type="xml">
+            <form string="Privacy Policy" create="false" delete="false">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_published"/>
+                    </group>
+                    <separator string="Content"/>
+                    <field name="body" widget="html"
+                           placeholder="Write the privacy policy shown in the mobile app..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mobile_privacy_policy_list" model="ir.ui.view">
+        <field name="name">mobile.privacy.policy.list</field>
+        <field name="model">mobile.privacy.policy</field>
+        <field name="arch" type="xml">
+            <!-- editable: a boolean_toggle in a non-editable list would publish instantly with no Save. -->
+            <list string="Privacy Policy" create="false" delete="false"
+                  editable="bottom" open_form_view="1">
+                <field name="name"/>
+                <field name="is_published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mobile_privacy_policy" model="ir.actions.act_window">
+        <field name="name">Privacy Policy</field>
+        <field name="res_model">mobile.privacy.policy</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" ref="mobile_privacy_policy_default"/>
+        <field name="target">current</field>
+    </record>
+
+    <record id="view_mobile_terms_condition_form" model="ir.ui.view">
+        <field name="name">mobile.terms.condition.form</field>
+        <field name="model">mobile.terms.condition</field>
+        <field name="arch" type="xml">
+            <form string="Terms &amp; Conditions" create="false" delete="false">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_published"/>
+                    </group>
+                    <separator string="Content"/>
+                    <field name="body" widget="html"
+                           placeholder="Write the terms &amp; conditions shown in the mobile app..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mobile_terms_condition_list" model="ir.ui.view">
+        <field name="name">mobile.terms.condition.list</field>
+        <field name="model">mobile.terms.condition</field>
+        <field name="arch" type="xml">
+            <!-- editable: see the note on the Privacy Policy list above. -->
+            <list string="Terms &amp; Conditions" create="false" delete="false"
+                  editable="bottom" open_form_view="1">
+                <field name="name"/>
+                <field name="is_published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mobile_terms_condition" model="ir.actions.act_window">
+        <field name="name">Terms &amp; Conditions</field>
+        <field name="res_model">mobile.terms.condition</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" ref="mobile_terms_condition_default"/>
+        <field name="target">current</field>
+    </record>
+
+    <record id="view_mobile_faq_list" model="ir.ui.view">
+        <field name="name">mobile.faq.list</field>
+        <field name="model">mobile.faq</field>
+        <field name="arch" type="xml">
+            <!-- editable: see the Privacy Policy list; handle reordering still writes immediately by design. -->
+            <list string="FAQ" default_order="sequence" editable="bottom"
+                  open_form_view="1">
+                <field name="sequence" widget="handle"/>
+                <field name="heading"/>
+                <field name="sub_heading"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_faq_form" model="ir.ui.view">
+        <field name="name">mobile.faq.form</field>
+        <field name="model">mobile.faq</field>
+        <field name="arch" type="xml">
+            <form string="FAQ">
+                <sheet>
+                    <group>
+                        <field name="heading"/>
+                        <field name="active"/>
+                    </group>
+                    <separator string="Sub-heading"/>
+                    <field name="sub_heading" placeholder="Answer / detail line..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mobile_faq_search" model="ir.ui.view">
+        <field name="name">mobile.faq.search</field>
+        <field name="model">mobile.faq</field>
+        <field name="arch" type="xml">
+            <search string="FAQ">
+                <field name="heading"/>
+                <field name="sub_heading"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mobile_faq" model="ir.actions.act_window">
+        <field name="name">FAQ</field>
+        <field name="res_model">mobile.faq</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_mobile_faq_search"/>
+        <field name="context">{'active_test': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first FAQ entry
+            </p>
+            <p>
+                Each entry has a heading (the question) and a sub-heading
+                (the answer) shown in the mobile app.
+            </p>
+        </field>
+    </record>
+
+</odoo>

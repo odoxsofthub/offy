@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mobile_config_form" model="ir.ui.view">
+        <field name="name">mobile.config.form</field>
+        <field name="model">mobile.config</field>
+        <field name="arch" type="xml">
+            <form string="Mobile Configuration" create="false" delete="false">
+                <sheet>
+                    <field name="show_chatter_logs" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_toggle_chatter" type="object"
+                                class="oe_stat_button" icon="fa-history">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text" invisible="show_chatter_logs">Show Logs</span>
+                                <span class="o_stat_text" invisible="not show_chatter_logs">Hide Logs</span>
+                            </div>
+                        </button>
+                    </div>
+                    <notebook>
+                        <page string="General" name="general">
+                            <group>
+                                <group string="Access">
+                                    <field name="login_enabled"/>
+                                    <field name="maintenance_mode"/>
+                                    <field name="session_timeout"/>
+                                    <field name="max_devices"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notifications" name="notifications">
+                            <group>
+                                <group string="Push Notifications">
+                                    <field name="push_notifications_enabled"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Logging" name="logging">
+                            <group>
+                                <group string="Logging">
+                                    <field name="log_notes_enabled"/>
+                                    <field name="log_user_access_changes"
+                                           invisible="not log_notes_enabled"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Attendance" name="attendance_gps">
+                            <group>
+                                <group string="Attendance GPS">
+                                    <field name="attendance_gps_required"/>
+                                    <field name="attendance_checkin_gps_required" invisible="not attendance_gps_required"/>
+                                    <field name="attendance_checkout_gps_required" invisible="not attendance_gps_required"/>
+                                    <!-- Kept visible when the master switch is off: work locations may override it and fall back here. -->
+                                    <field name="attendance_gps_boundary"/>
+                                    <field name="company_latitude"/>
+                                    <field name="company_longitude"/>
+                                </group>
+                            </group>
+                            <div class="text-muted">
+                                These are the <b>global defaults</b>. Any work location can
+                                override them — its own switches, coordinates and radius —
+                                under
+                                <b>Employees &#8594; Configuration &#8594; Work Locations</b>.
+                                Work locations start set to <i>Use global setting</i>, so
+                                until one is changed these settings apply to everyone.
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter invisible="not show_chatter_logs"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mobile_config_list" model="ir.ui.view">
+        <field name="name">mobile.config.list</field>
+        <field name="model">mobile.config</field>
+        <field name="arch" type="xml">
+            <list string="Mobile Configuration" create="false" delete="false">
+                <field name="login_enabled"/>
+                <field name="maintenance_mode"/>
+                <field name="session_timeout"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mobile_config" model="ir.actions.act_window">
+        <field name="name">Configuration</field>
+        <field name="res_model">mobile.config</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" ref="mobile_config_default"/>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

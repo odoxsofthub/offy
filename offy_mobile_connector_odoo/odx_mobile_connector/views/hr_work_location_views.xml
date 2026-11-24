@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_work_location_view_form_attendance_gps" model="ir.ui.view">
+        <field name="name">hr.work.location.view.form.inherit.mobile.attendance.gps</field>
+        <field name="model">hr.work.location</field>
+        <field name="inherit_id" ref="hr.hr_work_location_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="after">
+                <group string="Mobile Attendance Geofence" name="attendance_geofence">
+                    <group string="Validation">
+                        <field name="attendance_gps_required_mode"/>
+                        <field name="attendance_checkin_gps_mode"/>
+                        <field name="attendance_checkout_gps_mode"/>
+                    </group>
+                    <group string="Location">
+                        <field name="attendance_latitude"/>
+                        <field name="attendance_longitude"/>
+                        <field name="attendance_gps_boundary"/>
+                    </group>
+                </group>
+                <div class="text-muted">
+                    Every setting here is an <b>override</b>. Left as
+                    <b>Use global setting</b> — with the coordinates empty and the
+                    boundary at <b>0</b> — this site simply follows
+                    <b>OFFY Connector &#8594; Configuration &#8594; Attendance GPS</b>.
+                    <br/>
+                    Set the switches to <b>No</b> for a home or remote site:
+                    employees based there would otherwise be measured against an
+                    office they never visit and could never check in.
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

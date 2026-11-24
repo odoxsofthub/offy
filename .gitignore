@@ -1,0 +1,19 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*firebase-adminsdk*.json
+service-account*.json
+*.pem
+*.p8
+*.p12
+*.jks
+*.keystore
+key.properties
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/

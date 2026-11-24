@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- user_id is root: dispatch reads admin-only Firebase credentials and every user's device tokens. -->
+    <record id="ir_cron_dispatch_push_notifications" model="ir.cron">
+        <field name="name">Mobile Push: Dispatch Queued Notifications</field>
+        <!-- Targets the log model: mobile.push.service is an AbstractModel, not a safe ir.cron target. -->
+        <field name="model_id" ref="model_mobile_notification_log"/>
+        <field name="state">code</field>
+        <field name="code">model.env["mobile.push.service"]._cron_dispatch_pending()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_gc_realtime_tickets" model="ir.cron">
+        <field name="name">Mobile Realtime: Cleanup Expired Tickets</field>
+        <field name="model_id" ref="model_mobile_realtime_ticket"/>
+        <field name="state">code</field>
+        <field name="code">model._gc_tickets()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Backstop cleanup only; never sends notifications. -->
+    <record id="ir_cron_cleanup_stale_firebase_tokens" model="ir.cron">
+        <field name="name">Mobile Push: Cleanup Stale Firebase Tokens</field>
+        <field name="model_id" ref="model_mobile_device_token"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_stale_tokens()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>
