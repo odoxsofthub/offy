@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- noupdate="1": an upgrade must not undo an admin's rename or archive of shipped features. -->
+
+    <record id="feature_attendance" model="mobile.feature">
+        <field name="name">Attendance</field>
+        <field name="code">attendance</field>
+        <field name="sequence">10</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="feature_expense" model="mobile.feature">
+        <field name="name">Expense</field>
+        <field name="code">expense</field>
+        <field name="sequence">20</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="feature_leave" model="mobile.feature">
+        <field name="name">Time Off</field>
+        <field name="code">time_off</field>
+        <field name="sequence">30</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="feature_payslip" model="mobile.feature">
+        <field name="name">Payslip</field>
+        <field name="code">payslip</field>
+        <field name="sequence">40</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="feature_calendar" model="mobile.feature">
+        <field name="name">Calendar</field>
+        <field name="code">calendar</field>
+        <field name="sequence">50</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <function model="mobile.feature" name="_cleanup_global_profile_feature"/>
+
+</odoo>

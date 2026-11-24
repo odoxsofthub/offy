@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- APNs environment. Without this entitlement iOS never issues an APNs
+	     token, FirebaseMessaging.getToken() returns null, and no push can ever
+	     arrive - which is the state this project was in.
+
+	     "development" is correct for debug builds run from Xcode. Release and
+	     TestFlight builds need "production"; Xcode substitutes it automatically
+	     when the Push Notifications capability is added through the UI, which
+	     is why adding the capability in Xcode is preferred over relying on this
+	     file alone.
+
+	     THIS FILE ALONE DOES NOTHING. It must be referenced by the Xcode
+	     project (CODE_SIGN_ENTITLEMENTS) - see section 11.2 of the main README. -->
+	<key>aps-environment</key>
+	<string>development</string>
+</dict>
+</plist>
