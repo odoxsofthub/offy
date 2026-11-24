@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Unpublished placeholder singletons; noupdate="1" preserves admin edits across upgrades. -->
+    <data noupdate="1">
+        <record id="mobile_privacy_policy_default" model="mobile.privacy.policy">
+            <field name="name">Privacy Policy</field>
+            <field name="is_published" eval="False"/>
+            <field name="body"><![CDATA[<p>Privacy policy content has not been set yet.</p>]]></field>
+        </record>
+
+        <record id="mobile_terms_condition_default" model="mobile.terms.condition">
+            <field name="name">Terms &amp; Conditions</field>
+            <field name="is_published" eval="False"/>
+            <field name="body"><![CDATA[<p>Terms &amp; Conditions content has not been set yet.</p>]]></field>
+        </record>
+    </data>
+</odoo>

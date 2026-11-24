@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mobile_user_session_list" model="ir.ui.view">
+        <field name="name">mobile.user.session.list</field>
+        <field name="model">mobile.user.session</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" delete="false">
+                <field name="user_id" string="Employee"/>
+                <field name="platform"/>
+                <field name="app_version"/>
+                <field name="first_login"/>
+                <field name="last_session"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mobile_user_session_search" model="ir.ui.view">
+        <field name="name">mobile.user.session.search</field>
+        <field name="model">mobile.user.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id" string="Employee"/>
+                <field name="platform"/>
+                <field name="app_version"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mobile_user_session_form" model="ir.ui.view">
+        <field name="name">mobile.user.session.form</field>
+        <field name="model">mobile.user.session</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="user_id" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Session Details">
+                            <field name="employee_id" readonly="1"/>
+                            <field name="platform" readonly="1"/>
+                            <field name="app_version" readonly="1"/>
+                        </group>
+                        <group string="Activity">
+                            <field name="first_login" readonly="1"/>
+                            <field name="last_session" readonly="1"/>
+                            <field name="device_token_count"/>
+                        </group>
+                    </group>
+                    <field name="show_push_tokens" invisible="1"/>
+                    <notebook invisible="show_push_tokens == False">
+                        <page string="Firebase Device Tokens" name="device_tokens">
+                            <field name="device_token_ids" nolabel="1">
+                                <list editable="bottom" create="false" delete="false">
+                                    <field name="firebase_id" readonly="1" width="520px"/>
+                                    <field name="device_type" readonly="1" width="120px"/>
+                                    <field name="registered_at" string="Registered At"
+                                           readonly="1" width="170px"/>
+                                    <field name="last_push_sent_at" readonly="1" width="170px"/>
+                                    <field name="status" readonly="1" width="110px"/>
+                                    <button name="action_remove" type="object"
+                                            string="Remove" icon="fa-trash"
+                                            confirm="Remove this device token?"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mobile_user_session" model="ir.actions.act_window">
+        <field name="name">Mobile Sessions</field>
+        <field name="res_model">mobile.user.session</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No mobile sessions yet.
+            </p>
+            <p>Sessions are recorded automatically when a user logs in or refreshes their token via the mobile app.</p>
+        </field>
+    </record>
+
+</odoo>

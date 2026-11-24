@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_attendance_tree_mobile_location" model="ir.ui.view">
+        <field name="name">hr.attendance.list.mobile.location</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="mobile_check_in_location_enabled" column_invisible="1"/>
+                <field name="mobile_check_out_location_enabled" column_invisible="1"/>
+                <field name="check_in_location_url" string="Check In Location"
+                       widget="url" optional="hide"
+                       invisible="not check_in_location_url"/>
+                <field name="check_out_location_url" string="Check Out Location"
+                       widget="url" optional="hide"
+                       invisible="not check_out_location_url"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_view_form_mobile_location" model="ir.ui.view">
+        <field name="name">hr.attendance.form.mobile.location</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="mobile_check_in_location_enabled" invisible="1"/>
+                <field name="mobile_check_out_location_enabled" invisible="1"/>
+                <field name="check_in_location_url" string="Check In Location"
+                       widget="url" readonly="1"
+                       invisible="not check_in_location_url"/>
+                <field name="check_out_location_url" string="Check Out Location"
+                       widget="url" readonly="1"
+                       invisible="not check_out_location_url"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
